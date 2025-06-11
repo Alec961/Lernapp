@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lernfortschritt App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between bg-white shadow-md px-4 py-3 fixed w-full z-50">
+        <!-- Burger-Menü -->
+        <button id="menu-toggle" class="text-2xl md:hidden">
+            &#9776;
+        </button>
+
+        <!-- Titel -->
+        <a href="/" class="text-xl font-bold">Lernfortschritt</a>
+
+        <!-- Profil -->
+        <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold cursor-pointer">
+            <span>P</span>
+        </div>
+    </header>
+
+    <!-- Seitenmenü -->
+    <aside id="sidebar" class="bg-white w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-lg z-40 pt-16">
+        <div class="p-4 font-bold text-lg border-b">Menü</div>
+        <nav class="p-4 space-y-2">
+            <a href="/" class="block text-gray-700 hover:text-blue-600">🏠 Startseite</a>
+            <a href="/dashboard" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
+            <a href="/lernprogramme" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
+            <a href="/notizen" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
+        </nav>
+    </aside>
+
+    <!-- Hauptinhalt -->
+    <main class="p-6 pt-24 md:ml-64">
+        {% block content %}
+        <!-- Seiteninhalt kommt hier rein -->
+        {% endblock %}
+    </main>
+
+    <!-- Menü-Script -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    </script>
+
+</body>
+</html>
