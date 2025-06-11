@@ -1,0 +1,21 @@
+<!-- templates/notizen.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notizen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="flex items-center justify-between bg-white shadow-md px-4 py-3">
+    <h1 class="text-xl font-bold">📝 Notizen</h1>
+    <a href="/" class="text-blue-600 hover:underline">Zurück</a>
+  </header>
+  <main class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Hier kannst du deine Lernnotizen festhalten</h2>
+    <textarea class="w-full p-4 rounded shadow border border-gray-300" rows="10" placeholder="Deine Notizen..."></textarea>
+    <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Speichern</button>
+  </main>
+</body>
+</html>
