@@ -1,0 +1,52 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: sans-serif; margin: 2em; background: #f9f9f9; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2em; }
+    h1 { margin: 0; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1em; }
+    .card { background: white; border-radius: 8px; padding: 1em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .entries { margin-top: 2em; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 0.5em 0; border-bottom: 1px solid #ddd; }
+    nav a { margin-left: 1em; text-decoration: none; color: #555; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 Dashboard</h1>
+    <nav>
+      <a href="/">➕ Neuer Eintrag</a>
+    </nav>
+  </header>
+
+  <div class="stats">
+    <div class="card">
+      <strong>📚 Einträge insgesamt:</strong>
+      <p>{{ total_entries }}</p>
+    </div>
+    <div class="card">
+      <strong>📂 Themen:</strong>
+      <p>{{ topic_count }}</p>
+    </div>
+    <div class="card">
+      <strong>📝 Offene Aufgaben:</strong>
+      <p>{{ open_tasks }}</p>
+    </div>
+  </div>
+
+  <div class="entries">
+    <h2>🕓 Letzte 4 Einträge</h2>
+    <ul>
+      {% for entry in last_entries %}
+        <li><strong>{{ entry.learning_date }}:</strong> {{ entry.topic }} ({{ entry.duration_minutes }} Min)</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
