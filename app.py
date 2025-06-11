@@ -81,7 +81,7 @@ def lernprogramme():
     return render_template("lernprogramme.html")
 
 @app.route("/dashboard")
-def notizen():
+def dashboard():
     return render_template("dashboard.html")
 
 # 5. Start Flask
