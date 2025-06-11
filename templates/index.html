@@ -24,27 +24,37 @@
         </div>
     </header>
 
-        <!-- Dashboard --> 
-    <nav style="text-align: right; margin-bottom: 1em;">
-      <a href="/dashboard" style="text-decoration: none; font-weight: bold;">📊 Zum Dashboard</a>
-    </nav>
     
     <!-- Seitenmenü -->
     <aside id="sidebar" class="bg-white w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-lg z-40">
         <div class="p-4 font-bold text-lg border-b">Menü</div>
         <nav class="p-4 space-y-2">
-            <a href="#" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
-            <a href="#" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
-            <a href="#" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
+            <a href="/dashboard" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
+            <a href="/lernprogramme" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
+            <a href="/notizen" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
         </nav>
     </aside>
 
     <!-- Hauptinhalt -->
     <main class="p-6 mt-4 md:ml-64">
-        <h2 class="text-2xl font-semibold mb-4">Willkommen zurück!</h2>
-        <p>Hier wird dein Lernfortschritt angezeigt.</p>
-    </main>
+    <h2 class="text-2xl font-semibold mb-4">Deine letzten Einträge</h2>
 
+    {% if entries %}
+        <ul class="space-y-4">
+            {% for entry in entries %}
+                <li class="bg-white p-4 rounded shadow-md">
+                    <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
+                    <div class="font-bold text-lg">{{ entry.topic }}</div>
+                    <div>{{ entry.description }}</div>
+                    <div class="text-sm text-blue-700 mt-1">{{ entry.duration_minutes }} Minuten</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-600">Noch keine Einträge vorhanden.</p>
+    {% endif %}
+</main>
+    
     <!-- Menü-Script -->
     <script>
         const menuToggle = document.getElementById('menu-toggle');
