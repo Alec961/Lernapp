@@ -1,0 +1,25 @@
+<!-- templates/lernprogramme.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lernprogramme</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="flex items-center justify-between bg-white shadow-md px-4 py-3">
+    <h1 class="text-xl font-bold">📚 Lernprogramme</h1>
+    <a href="/" class="text-blue-600 hover:underline">Zurück</a>
+  </header>
+  <main class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Dein Lernfortschritt</h2>
+    <p class="mb-4">Hier kannst du deine Lernpläne und Fortschritte verwalten. (Diese Seite kann später mit dynamischen Inhalten ergänzt werden.)</p>
+    <ul class="list-disc list-inside">
+      <li>📌 Python Grundlagen</li>
+      <li>📌 OOP mit Klassen</li>
+      <li>📌 Flask Webentwicklung</li>
+    </ul>
+  </main>
+</body>
+</html>
