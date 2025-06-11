@@ -1,68 +1,22 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernfortschritt App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900">
+{% extends "base.html" %}
 
-    <!-- Header -->
-    <header class="flex items-center justify-between bg-white shadow-md px-4 py-3">
-        <!-- Burger-Menü -->
-        <button id="menu-toggle" class="text-2xl md:hidden">
-            &#9776;
-        </button>
+{% block title %}Startseite{% endblock %}
 
-        <!-- Titel -->
-        <h1 class="text-xl font-bold">Lernfortschritt</h1>
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">📅 Deine letzten Einträge</h2>
 
-        <!-- Profil -->
-        <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold">
-            <span>P</span>
-        </div>
-    </header>
-
-    
-    <!-- Seitenmenü -->
-    <aside id="sidebar" class="bg-white w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-lg z-40">
-        <div class="p-4 font-bold text-lg border-b">Menü</div>
-        <nav class="p-4 space-y-2">
-            <a href="/dashboard" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
-            <a href="/lernprogramme" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
-            <a href="/notizen" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
-        </nav>
-    </aside>
-
-    <!-- Hauptinhalt -->
-    <main class="p-6 mt-4 md:ml-64">
-    <h2 class="text-2xl font-semibold mb-4">Deine letzten Einträge</h2>
-
-    {% if entries %}
-        <ul class="space-y-4">
-            {% for entry in entries %}
-                <li class="bg-white p-4 rounded shadow-md">
-                    <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
-                    <div class="font-bold text-lg">{{ entry.topic }}</div>
-                    <div>{{ entry.description }}</div>
-                    <div class="text-sm text-blue-700 mt-1">{{ entry.duration_minutes }} Minuten</div>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p class="text-gray-600">Noch keine Einträge vorhanden.</p>
-    {% endif %}
-</main>
-    
-    <!-- Menü-Script -->
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-    </script>
-</body>
-</html>
+{% if entries %}
+    <ul class="space-y-4">
+        {% for entry in entries %}
+            <li class="bg-white p-4 rounded shadow-md">
+                <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
+                <div class="font-bold text-lg">{{ entry.topic }}</div>
+                <div>{{ entry.description }}</div>
+                <div class="text-sm text-blue-700 mt-1">{{ entry.duration_minutes }} Minuten</div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-gray-600">Noch keine Einträge vorhanden.</p>
+{% endif %}
+{% endblock %}
