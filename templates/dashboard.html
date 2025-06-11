@@ -1,52 +1,35 @@
-<!-- templates/dashboard.html -->
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: sans-serif; margin: 2em; background: #f9f9f9; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2em; }
-    h1 { margin: 0; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1em; }
-    .card { background: white; border-radius: 8px; padding: 1em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    .entries { margin-top: 2em; }
-    ul { list-style: none; padding: 0; }
-    li { padding: 0.5em 0; border-bottom: 1px solid #ddd; }
-    nav a { margin-left: 1em; text-decoration: none; color: #555; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>📊 Dashboard</h1>
-    <nav>
-      <a href="/">➕ Neuer Eintrag</a>
-    </nav>
-  </header>
+{% extends "base.html" %}
 
-  <div class="stats">
-    <div class="card">
-      <strong>📚 Einträge insgesamt:</strong>
-      <p>{{ total_entries }}</p>
-    </div>
-    <div class="card">
-      <strong>📂 Themen:</strong>
-      <p>{{ topic_count }}</p>
-    </div>
-    <div class="card">
-      <strong>📝 Offene Aufgaben:</strong>
-      <p>{{ open_tasks }}</p>
-    </div>
-  </div>
+{% block title %}Dashboard{% endblock %}
 
-  <div class="entries">
-    <h2>🕓 Letzte 4 Einträge</h2>
-    <ul>
-      {% for entry in last_entries %}
-        <li><strong>{{ entry.learning_date }}:</strong> {{ entry.topic }} ({{ entry.duration_minutes }} Min)</li>
-      {% endfor %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">📊 Dashboard</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-4 rounded shadow">
+        <div class="text-sm text-gray-500">📚 Einträge insgesamt</div>
+        <div class="text-2xl font-semibold">{{ total_entries }}</div>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+        <div class="text-sm text-gray-500">📂 Themen</div>
+        <div class="text-2xl font-semibold">{{ topic_count }}</div>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+        <div class="text-sm text-gray-500">📝 Offene Aufgaben</div>
+        <div class="text-2xl font-semibold">{{ open_tasks }}</div>
+    </div>
+</div>
+
+<div class="bg-white p-4 rounded shadow">
+    <h2 class="text-xl font-bold mb-4">🕓 Letzte 4 Einträge</h2>
+    <ul class="divide-y divide-gray-200">
+        {% for entry in last_entries %}
+        <li class="py-2">
+            <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
+            <div class="font-semibold">{{ entry.topic }}</div>
+            <div class="text-sm">{{ entry.duration_minutes }} Minuten</div>
+        </li>
+        {% endfor %}
     </ul>
-  </div>
-</body>
-</html>
+</div>
+{% endblock %}
