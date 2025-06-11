@@ -72,6 +72,17 @@ def index():
 
     return render_template("index.html", entries=entries)
 
+@app.route("/notizen")
+def notizen():
+    return render_template("notizen.html")
+
+@app.route("/lernprogramme")
+def lernprogramme():
+    return render_template("lernprogramme.html")
+
+@app.route("/dashboard")
+def notizen():
+    return render_template("dashboard.html")
 
 # 5. Start Flask
 if __name__ == "__main__":
