@@ -40,9 +40,14 @@ class LearningEntry:
 def load_entries():
     if not os.path.exists(DATA_FILE):
         return []
-    with open(DATA_FILE, "r") as f:
-        data = json.load(f)
-    return [LearningEntry.from_dict(d) for d in data]
+
+    try:
+        with open(DATA_FILE, "r") as f:
+            data = json.load(f)
+        return [LearningEntry.from_dict(d) for d in data]
+    except (json.JSONDecodeError, ValueError):
+        print(">>> Warnung: JSON-Datei leer oder beschädigt – starte mit leerer Liste.")
+        return []
 
 
 # 3. Save entries
