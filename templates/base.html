@@ -19,13 +19,77 @@
         <a href="/" class="text-xl font-bold">Lernfortschritt</a>
 
         <!-- Profil -->
-        <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold cursor-pointer">
-            <span>P</span>
-        </div>
-    </header>
+       <!-- Profil-Dropdown in base.html -->
+<div class="relative">
+  <button id="profile-button" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none">
+    <img id="profile-image" src="/static/default-avatar.png" alt="Profil" class="w-8 h-8 rounded-full object-cover">
+  </button>
+
+  <!-- Dropdown -->
+  <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 dark:bg-gray-800">
+    <a href="/profil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">👤 Profil</a>
+    <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">🚪 Abmelden</a>
+    <div class="px-4 py-2 text-sm flex justify-between items-center">
+      🌙 Dark Mode
+      <input type="checkbox" id="dark-toggle" class="ml-2">
+    </div>
+  </div>
+
+  <!-- Bild-Upload -->
+  <input type="file" id="image-upload" accept="image/*" class="hidden">
+</div>
+
+<script>
+  const profileButton = document.getElementById('profile-button');
+  const profileMenu = document.getElementById('profile-menu');
+  const imageUpload = document.getElementById('image-upload');
+  const profileImage = document.getElementById('profile-image');
+  const darkToggle = document.getElementById('dark-toggle');
+
+  profileButton.addEventListener('click', () => {
+    profileMenu.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!profileButton.contains(e.target) && !profileMenu.contains(e.target)) {
+      profileMenu.classList.add('hidden');
+    }
+  });
+
+  profileImage.addEventListener('click', () => {
+    imageUpload.click();
+  });
+
+  imageUpload.addEventListener('change', () => {
+    const file = imageUpload.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        profileImage.src = e.target.result;
+        localStorage.setItem('profileImage', e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  if (localStorage.getItem('profileImage')) {
+    profileImage.src = localStorage.getItem('profileImage');
+  }
+
+  darkToggle.addEventListener('change', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', darkToggle.checked ? 'dark' : 'light');
+  });
+
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+    darkToggle.checked = true;
+  }
+</script>
+
 
     <!-- Seitenmenü -->
-    <aside id="sidebar" class="bg-white w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-lg z-40 pt-16">
+    <aside id="sidebar" class="bg-gray-50 w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-lg z-40 pt-16">
         <div class="p-4 font-bold text-lg border-b">Menü</div>
         <nav class="p-4 space-y-2">
             <a href="/" class="block text-gray-700 hover:text-blue-600">🏠 Startseite</a>
