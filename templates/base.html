@@ -20,24 +20,23 @@
 
         <!-- Profil -->
        <!-- Profil-Dropdown in base.html -->
-<div class="relative">
-  <button id="profile-button" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none">
-    <img id="profile-image" src="/static/default-avatar.png" alt="Profil" class="w-8 h-8 rounded-full object-cover">
-  </button>
+        <div class="relative">
+          <button id="profile-button" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none">
+            <img id="profile-image" src="/static/default-avatar.png" alt="Profil" class="w-8 h-8 rounded-full object-cover">
+          </button>
 
   <!-- Dropdown -->
-  <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 dark:bg-gray-800">
-    <a href="/profil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">👤 Profil</a>
-    <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">🚪 Abmelden</a>
-    <div class="px-4 py-2 text-sm flex justify-between items-center">
-      🌙 Dark Mode
-      <input type="checkbox" id="dark-toggle" class="ml-2">
-    </div>
-  </div>
+          <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 dark:bg-gray-800">
+            <a href="/profil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">👤 Profil</a>
+            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">🚪 Abmelden</a>
+            <div class="px-4 py-2 text-sm flex justify-between items-center">
+              🌙 Dark Mode
+              <input type="checkbox" id="dark-toggle" class="ml-2">
+            </div>
+          </div>
+        </div>
+    </header>
 
-  <!-- Bild-Upload -->
-  <input type="file" id="image-upload" accept="image/*" class="hidden">
-</div>
 
 <script>
   const profileButton = document.getElementById('profile-button');
