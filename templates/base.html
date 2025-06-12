@@ -1,130 +1,143 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lernfortschritt App{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Lernfortschritt App{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-100 text-gray-900 transition-colors duration-300">
 
-    <!-- Header -->
-    <header class="flex items-center justify-between bg-white shadow-md px-4 py-3 fixed w-full z-50">
-        <!-- Burger-Menü -->
-        <button id="menu-toggle" class="text-2xl md:hidden">
-            &#9776;
-        </button>
+  <!-- Header -->
+  <header class="flex items-center justify-between bg-white shadow-md px-4 py-3 fixed w-full z-50">
+    <!-- Burger-Menü -->
+    <button id="menu-toggle" class="text-2xl md:hidden">&#9776;</button>
 
-        <!-- Titel -->
-        <a href="/" class="text-xl font-bold">Lernfortschritt</a>
+    <!-- Titel -->
+    <a href="/" class="text-xl font-bold">Lernfortschritt</a>
 
-        <!-- Profil -->
-       <!-- Profil-Dropdown in base.html -->
-        <div class="relative">
-          <button id="profile-button" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none">
-            <img id="profile-image" src="/static/default-avatar.png" alt="Profil" class="w-8 h-8 rounded-full object-cover">
-          </button>
+    <!-- Profil -->
+    <div class="relative">
+      <button id="profile-button" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none">
+        <img id="profile-image" src="/static/default-avatar.png" alt="Profil" class="w-8 h-8 rounded-full object-cover">
+      </button>
 
-  <!-- Dropdown -->
-          <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 dark:bg-gray-800">
-            <a href="/profil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">👤 Profil</a>
-            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">🚪 Abmelden</a>
-            <div class="px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700 text-sm flex justify-between items-center">
-              🌙 Dark Mode
-              <input type="checkbox" id="dark-toggle" class="ml-2">
-            </div>
-          </div>
+      <input type="file" id="image-upload" class="hidden" accept="image/*">
+
+      <!-- Dropdown -->
+      <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg py-2 z-50 dark:bg-gray-800">
+        <a href="/profil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">👤 Profil</a>
+        <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700">🚪 Abmelden</a>
+        <div class="px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700 text-sm flex justify-between items-center">
+          🌙 Dark Mode
+          <input type="checkbox" id="dark-toggle" class="ml-2">
         </div>
-    </header>
-
-
-<script>
-  const profileButton = document.getElementById('profile-button');
-  const profileMenu = document.getElementById('profile-menu');
-  const imageUpload = document.getElementById('image-upload');
-  const profileImage = document.getElementById('profile-image');
-  const darkToggle = document.getElementById('dark-toggle');
-
-  profileButton.addEventListener('click', () => {
-    profileMenu.classList.toggle('hidden');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!profileButton.contains(e.target) && !profileMenu.contains(e.target)) {
-      profileMenu.classList.add('hidden');
-    }
-  });
-
-  profileImage.addEventListener('click', () => {
-    imageUpload.click();
-  });
-
-  imageUpload.addEventListener('change', () => {
-    const file = imageUpload.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        profileImage.src = e.target.result;
-        localStorage.setItem('profileImage', e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  if (localStorage.getItem('profileImage')) {
-    profileImage.src = localStorage.getItem('profileImage');
-  }
-
-  darkToggle.addEventListener('change', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', darkToggle.checked ? 'dark' : 'light');
-  });
-
-  if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.classList.add('dark');
-    darkToggle.checked = true;
-  }
-</script>
-
-
-    <!-- Seitenmenü -->
-    <aside id="sidebar" class="bg-gray-50 w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-lg z-40 pt-16">
-        <div class="p-4 font-bold text-lg border-b">Menü</div>
-        <nav class="p-4 space-y-2">
-            <a href="/" class="block text-gray-700 hover:text-blue-600">🏠 Startseite</a>
-            <a href="/dashboard" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
-            <a href="/lernprogramme" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
-            <a href="/notizen" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
-        </nav>
-    </aside>
-
-    <!-- Hauptinhalt -->
-    <main class="p-6 pt-24 md:ml-64">
-        {% block content %}
-        <!-- Seiteninhalt kommt hier rein -->
-        {% endblock %}
-    </main>
-
-    <!-- Menü-Script -->
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-    </script>
-
-    <footer class="bg-white fixed text-gray-600 text-sm border-t bottom-0 mt-10 px-6 py-4 md:ml-64">
-  <div class="flex flex-col md:flex-row justify-between items-center gap-2">
-    <p>&copy; {{ year }} Lernfortschritt App – Alle Rechte vorbehalten</p>
-    <div class="flex gap-4">
-      <a href="/impressum" class="hover:underline">Impressum</a>
-      <a href="/datenschutz" class="hover:underline">Datenschutz</a>
-      <a href="/kontakt" class="hover:underline">Kontakt</a>
+      </div>
     </div>
-  </div>
-</footer>
-    
+  </header>
+
+  <!-- Overlay für Sidebar (mobil) -->
+  <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-30 md:hidden"></div>
+
+  <!-- Seitenmenü -->
+  <aside id="sidebar" class="bg-gray-50 w-64 h-full fixed top-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-lg z-40 pt-16">
+    <div class="p-4 font-bold text-lg border-b">Menü</div>
+    <nav class="p-4 space-y-2">
+      <a href="/" class="block text-gray-700 hover:text-blue-600">🏠 Startseite</a>
+      <a href="/dashboard" class="block text-gray-700 hover:text-blue-600">📊 Dashboard</a>
+      <a href="/lernprogramme" class="block text-gray-700 hover:text-blue-600">📚 Lernprogramme</a>
+      <a href="/notizen" class="block text-gray-700 hover:text-blue-600">📝 Notizen</a>
+    </nav>
+  </aside>
+
+  <!-- Hauptinhalt -->
+  <main class="p-6 pt-24 md:ml-64">
+    {% block content %}
+    <!-- Seiteninhalt kommt hier rein -->
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white w-full fixed text-gray-600 text-sm border-t bottom-0 mt-10 px-6 py-4 md:ml-64">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-2">
+      <p id="footer-year">&copy; {{ year }} Lernfortschritt App – Alle Rechte vorbehalten</p>
+      <div class="flex gap-4">
+        <a href="/impressum" class="hover:underline">Impressum</a>
+        <a href="/datenschutz" class="hover:underline">Datenschutz</a>
+        <a href="/kontakt" class="hover:underline">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS am Ende für Performance -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    const profileButton = document.getElementById('profile-button');
+    const profileMenu = document.getElementById('profile-menu');
+    const imageUpload = document.getElementById('image-upload');
+    const profileImage = document.getElementById('profile-image');
+    const darkToggle = document.getElementById('dark-toggle');
+
+    profileButton.addEventListener('click', () => {
+      profileMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!profileButton.contains(e.target) && !profileMenu.contains(e.target)) {
+        profileMenu.classList.add('hidden');
+      }
+    });
+
+    profileImage.addEventListener('click', () => {
+      imageUpload.click();
+    });
+
+    imageUpload.addEventListener('change', () => {
+      const file = imageUpload.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          profileImage.src = e.target.result;
+          localStorage.setItem('profileImage', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    if (localStorage.getItem('profileImage')) {
+      profileImage.src = localStorage.getItem('profileImage');
+    }
+
+    darkToggle.addEventListener('change', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', darkToggle.checked ? 'dark' : 'light');
+    });
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      darkToggle.checked = true;
+    }
+
+    // Fallback für Jahr im Footer
+    const footerYear = document.getElementById('footer-year');
+    if (footerYear && footerYear.innerText.includes('{{ year }}')) {
+      const year = new Date().getFullYear();
+      footerYear.innerText = `© ${year} Lernfortschritt App – Alle Rechte vorbehalten`;
+    }
+  </script>
+
 </body>
 </html>
