@@ -4,16 +4,39 @@
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-4">📚 Lernprogramme</h1>
-<p class="text-gray-600 mb-4">Hier findest du eine Übersicht deiner Lerninhalte oder Links zu Online-Kursen.</p>
+<p class="text-gray-600 mb-6">Erstelle personalisierte Lernprogramme mit Hilfe von KI. Gib ein Thema ein und wähle dein Lernlevel aus – der Plan wird auf dich zugeschnitten.</p>
 
-<ul class="space-y-3">
-    <li class="bg-white p-4 rounded shadow-md">
-        <strong>Python Grundlagen</strong><br>
-        <a href="https://www.learnpython.org/" target="_blank" class="text-blue-600 hover:underline">learnpython.org</a>
-    </li>
-    <li class="bg-white p-4 rounded shadow-md">
-        <strong>Flask Tutorial</strong><br>
-        <a href="https://flask.palletsprojects.com/" target="_blank" class="text-blue-600 hover:underline">flask.palletsprojects.com</a>
-    </li>
-</ul>
+<!-- KI Lernprogramm Generator -->
+<div class="bg-white p-6 rounded shadow-md mb-6">
+  <form action="/lernprogramme" method="post" class="space-y-4">
+    <!-- Eingabefeld für das Thema (Variable X) -->
+    <div>
+      <label for="topic" class="block font-semibold mb-1">Thema:</label>
+      <input type="text" id="topic" name="topic" required class="w-full border rounded px-3 py-2">
+    </div>
+
+    <!-- Auswahlfeld für den Wissensstand (Variable Y) -->
+    <div>
+      <label for="level" class="block font-semibold mb-1">Wissensstand:</label>
+      <select id="level" name="level" required class="w-full border rounded px-3 py-2">
+        <option value="Anfänger">Anfänger</option>
+        <option value="Fortgeschritten">Fortgeschritten</option>
+        <option value="Profi">Profi</option>
+        <option value="Experte">Experte</option>
+        <option value="Master">Master</option>
+      </select>
+    </div>
+
+    <!-- Button zum Absenden der Anfrage -->
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lernplan generieren</button>
+  </form>
+
+  <!-- Platzhalter für die KI-Ausgabe -->
+  {% if ai_plan %}
+    <div class="mt-6">
+      <h2 class="text-xl font-bold mb-2">🔍 Dein personalisierter Lernplan:</h2>
+      <div class="bg-gray-100 p-4 rounded whitespace-pre-line">{{ ai_plan }}</div>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
