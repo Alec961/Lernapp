@@ -3,20 +3,49 @@
 {% block title %}Startseite{% endblock %}
 
 {% block content %}
-<h2 class="text-2xl font-semibold mb-4">📅 Deine letzten Einträge</h2>
+<main class="p-6 mt-4 md:ml-64">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-{% if entries %}
-    <ul class="space-y-4">
+    <!-- Linker Block: Tool-Erklärung -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">🛠️ Was ist diese App?</h2>
+      <p>
+        Diese App hilft dir, deinen täglichen Lernfortschritt zu dokumentieren, deine Notizen zu organisieren und motiviert zu bleiben – mit visuellen Statistiken und einem Streak-System.
+      </p>
+      <p class="mt-2 text-gray-600 text-sm">
+        Du kannst Themen, Beschreibungen und Dauer eintragen, jederzeit darauf zugreifen und deine Entwicklung beobachten.
+      </p>
+    </div>
+
+    <!-- Rechter Block: Streak-Anzeige -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">🔥 Dein Streak</h2>
+      <div id="streak-display" class="text-5xl font-extrabold text-blue-600">
+        {{ streak_days | default("0") }} Tage 🔥
+      </div>
+      <p class="text-gray-600 mt-2">So viele Tage am Stück hast du mindestens einen Eintrag erstellt.</p>
+    </div>
+
+  </div>
+
+  <!-- Bereich für letzte Einträge -->
+  <div class="mt-10">
+    <h2 class="text-2xl font-semibold mb-4">📅 Deine letzten Einträge</h2>
+
+    {% if entries %}
+      <ul class="space-y-4">
         {% for entry in entries %}
-            <li class="bg-white p-4 rounded shadow-md">
-                <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
-                <div class="font-bold text-lg">{{ entry.topic }}</div>
-                <div>{{ entry.description }}</div>
-                <div class="text-sm text-blue-700 mt-1">{{ entry.duration_minutes }} Minuten</div>
-            </li>
+          <li class="bg-white p-4 rounded shadow-md">
+            <div class="text-sm text-gray-500">{{ entry.learning_date }}</div>
+            <div class="font-bold text-lg">{{ entry.topic }}</div>
+            <div>{{ entry.description }}</div>
+            <div class="text-sm text-blue-700 mt-1">{{ entry.duration_minutes }} Minuten</div>
+          </li>
         {% endfor %}
-    </ul>
-{% else %}
-    <p class="text-gray-600">Noch keine Einträge vorhanden.</p>
-{% endif %}
+      </ul>
+    {% else %}
+      <p class="text-gray-600">Noch keine Einträge vorhanden.</p>
+    {% endif %}
+  </div>
+</main>
 {% endblock %}
