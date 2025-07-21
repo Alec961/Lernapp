@@ -141,9 +141,26 @@ changePhotoButton.addEventListener('click', (e) => {
       localStorage.setItem('theme', darkToggle.checked ? 'dark' : 'light');
     });
 
-    if (localStorage.getItem('theme') === 'dark') {
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
       document.documentElement.classList.add('dark');
       darkToggle.checked = true;
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+      darkToggle.checked = false;
+    } else {
+      // Falls kein Theme gespeichert: OS-Einstellung verwenden
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+        darkToggle.checked = true;
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        darkToggle.checked = false;
+        localStorage.setItem('theme', 'light');
+      }
     }
 
     // Jahr im Footer setzen
