@@ -72,16 +72,38 @@ def index():
 
     return render_template("index.html", entries=entries)
 
-@app.route("/notizen")
+@app.route("/notizen", methods=["GET", "POST"])
 def notizen():
+    if request.method == "POST":
+        note = request.form["note"]
+
+        # ⬇️ Beispiel: Note speichern (in Textdatei, Liste, Datenbank o. Ä.)
+        with open("notizen.txt", "a", encoding="utf-8") as f:
+            f.write(f"{note}\n")
+
+        return redirect("/notizen")  # Nach dem Speichern zurück zur Seite
+
     return render_template("notizen.html")
 
-@app.route("/lernprogramme")
+
+@app.route("/lernprogramme", methods=["GET", "POST"])
 def lernprogramme():
+    if request.method == "POST":
+        data = request.form.get("input_name")  # Passe das an deine Form an
+        print("POST-Daten von /lernprogramme:", data)
+        # Optional: Daten speichern oder verarbeiten
+        return redirect("/lernprogramme")
+
     return render_template("lernprogramme.html")
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
+    if request.method == "POST":
+        data = request.form.get("input_name")  # Passe das an deine Form an
+        print("POST-Daten von /dashboard:", data)
+        # Optional: Daten speichern oder verarbeiten
+        return redirect("/dashboard")
+
     return render_template("dashboard.html")
 
 # 5. Start Flask
